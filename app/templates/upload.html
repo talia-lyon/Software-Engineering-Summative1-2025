@@ -5,29 +5,156 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Upload Data</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        /* Styling for the preview container */
+        #preview-container {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #cccccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        /* Center the upload button */
+        #confirm-upload {
+            display: block;
+            margin: 15px auto;
+            padding: 10px 20px;
+            background-color: #4c3f91;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #confirm-upload:hover {
+            background-color: #3a2c70;
+        }
+
+        /* Table Styling */
+        table.dataframe {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        table.dataframe th,
+        table.dataframe td {
+            border: 1px solid #ddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        table.dataframe th {
+            background-color: #4c3f91;
+            color: white;
+        }
+
+        table.dataframe tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
 </head>
 <body>
     <div class="dashboard-container">
+        <!-- Top Banner -->
         <header class="header">
             <div class="logo">TL</div>
-            <h1>Upload Data</h1>
+            <h1>Risk Assessment Dashboard</h1>
+            <div class="help-button">
+                <button>Show Help</button>
+            </div>
         </header>
-        <div class="main-content">
-            <h2>Upload Your Data</h2>
-            {% with messages = get_flashed_messages() %}
-                {% if messages %}
+
+        <!-- Dashboard Layout -->
+        <div class="dashboard-layout">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <nav>
                     <ul>
-                        {% for message in messages %}
-                            <li>{{ message }}</li>
-                        {% endfor %}
+                        <li><a href="/">Overview</a></li>
+                        <li><a href="/upload">Upload Data</a></li>
+                        <li><a href="/visualisations">Risk Visualisations</a></li>
                     </ul>
-                {% endif %}
-            {% endwith %}
-            <form action="/upload" method="post" enctype="multipart/form-data">
-                <input type="file" name="file" accept=".csv,.xlsx">
-                <button type="submit">Upload</button>
-            </form>
+                </nav>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="main-content">
+                <h2>Upload Your Data</h2>
+                <form id="upload-form" enctype="multipart/form-data">
+                    <input type="file" name="file" id="file-input">
+                    <button type="button" id="preview-button">Preview</button>
+                </form>
+
+                <!-- Container for Preview Table -->
+                <div id="preview-container" style="display: none;"></div>
+            </main>
         </div>
     </div>
+
+    <script>
+        $(document).ready(function () {
+            let confirmedFile; // Variable to store the confirmed file
+
+            // Preview button functionality
+            $('#preview-button').on('click', function () {
+                const fileInput = $('#file-input')[0].files[0];
+                if (!fileInput) {
+                    alert('Please select a file to preview.');
+                    return;
+                }
+
+                const formData = new FormData();
+                formData.append('file', fileInput);
+
+                $.ajax({
+                    url: '/preview-file',
+                    type: 'POST',
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+                        if (response.preview) {
+                            confirmedFile = fileInput; // Store the file to be uploaded
+                            $('#preview-container').html(`
+                                <h3>Preview of Your Data:</h3>
+                                ${response.preview}
+                                <button id="confirm-upload">Upload Dataset</button>
+                            `).show();
+
+                            // Upload button functionality
+                            $('#confirm-upload').on('click', function () {
+                                const finalFormData = new FormData();
+                                finalFormData.append('file', confirmedFile);
+
+                                $.ajax({
+                                    url: '/upload-final',
+                                    type: 'POST',
+                                    data: finalFormData,
+                                    contentType: false,
+                                    processData: false,
+                                    success: function (uploadResponse) {
+                                        alert(uploadResponse.message || 'Upload successful!');
+                                        $('#preview-container').hide(); // Clear preview after upload
+                                    },
+                                    error: function (xhr) {
+                                        alert('Error uploading the file. Please try again.');
+                                    }
+                                });
+                            });
+                        } else {
+                            alert('No preview available.');
+                        }
+                    },
+                    error: function (xhr) {
+                        const error = xhr.responseJSON?.error || 'An error occurred while previewing the file.';
+                        alert(error);
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>

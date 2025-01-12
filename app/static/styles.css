@@ -265,3 +265,101 @@ body {
     border-radius: 5px;
     height: 100%; /* Allow the visualisations to stretch vertically */
 }
+
+/* Upload Form Section */
+.upload-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center align the form in the content area */
+    gap: 10px; /* Add spacing between form elements */
+}
+
+.upload-form form {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center align the form elements */
+    width: 100%; /* Adjust width as needed */
+    max-width: 400px; /* Limit form width */
+}
+
+.upload-form input[type="file"] {
+    padding: 5px;
+    font-size: 14px;
+}
+
+.upload-form button {
+    background-color: #00b3b3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.upload-form button:hover {
+    background-color: #008a8a;
+}
+
+/* Flash Messages */
+.flash-messages ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 20px auto;
+    max-width: 400px;
+    text-align: center;
+}
+
+.flash-messages li {
+    background-color: #ffd700;
+    color: black;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Styling for Preview Table */
+table.dataframe {
+    width: 100%; /* Full width of the preview container */
+    border-collapse: collapse; /* Remove gaps between borders */
+    margin-top: 10px; /* Add space above the table */
+    font-family: Arial, sans-serif; /* Match dashboard font */
+    font-size: 14px; /* Adjust font size for readability */
+    color: #333333; /* Text colour */
+    background-color: #ffffff; /* Background colour */
+}
+
+table.dataframe th,
+table.dataframe td {
+    border: 1px solid #dddddd; /* Light grey border for cells */
+    text-align: left; /* Left align text */
+    padding: 8px; /* Add padding for spacing */
+}
+
+table.dataframe th {
+    background-color: #4c3f91; /* Purple header background */
+    color: white; /* White text for headers */
+    font-weight: bold; /* Bold text for headers */
+    text-transform: uppercase; /* Capitalise header text */
+}
+
+table.dataframe tr:nth-child(even) {
+    background-color: #f2f2f2; /* Light grey for even rows */
+}
+
+table.dataframe tr:hover {
+    background-color: #e0e0e0; /* Highlight row on hover */
+}
+
+/* Centering the Preview Container */
+#preview-container {
+    margin: 20px auto; /* Center container horizontally */
+    max-width: 90%; /* Limit the width */
+    padding: 15px;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}

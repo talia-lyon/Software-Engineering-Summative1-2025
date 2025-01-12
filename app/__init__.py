@@ -3,5 +3,9 @@ from .routes import bp
 
 def create_app():
     app = Flask(__name__)
-    app.register_blueprint(bp)  # Register the main blueprint
+    app.secret_key = 'your_secret_key'
+    app.config['UPLOAD_FOLDER'] = 'uploads'
+
+    app.register_blueprint(bp)
+
     return app

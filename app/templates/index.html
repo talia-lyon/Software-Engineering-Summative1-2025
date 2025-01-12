@@ -1,9 +1,48 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Risk Dashboard</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Risk Assessment Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-    <h1>Welcome to the Risk Dashboard</h1>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="logo">Company Logo</div>
+            <nav>
+                <ul>
+                    <li>Overview</li>
+                    <li>Upload Data</li>
+                    <li>Risk Visualisations</li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <header class="header">
+                <h1>Risk Assessment Dashboard</h1>
+            </header>
+            <section class="intro">
+                <p>Introduction notes to dashboard...</p>
+            </section>
+            <section class="key-metrics">
+                <div class="metric">Key Metric 1</div>
+                <div class="metric">Key Metric 2</div>
+                <div class="metric">Key Metric 3</div>
+            </section>
+            <section class="visualisations">
+                <div class="visualisation">Overview Visualisation 1</div>
+                <div class="visualisation">Overview Visualisation 2</div>
+            </section>
+        </div>
+
+        <!-- Help Button -->
+        <div class="help-button">
+            <button>Show Help</button>
+        </div>
+    </div>
 </body>
 </html>

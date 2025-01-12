@@ -2,32 +2,44 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    color: #333;
 }
 
 .dashboard-container {
     display: flex;
-    height: 100vh;
     flex-direction: column;
+    height: 100vh;
 }
 
 /* Top Banner */
-.top-banner {
+.header {
+    background-color: #4c3f91; /* Purple banner */
+    color: white;
     display: flex;
     align-items: center;
-    background-color: #4c3f91;
-    color: white;
+    justify-content: space-between;
     padding: 10px 20px;
+    height: 60px;
     position: relative;
 }
 
-.logo img {
-    width: 40px;
-    height: 40px;
-    margin-right: 20px;
+.logo {
+    width: 50px; /* Diameter of the circle */
+    height: 50px; /* Diameter of the circle */
+    background-color: #00b3b3; /* Circle background colour */
+    color: white; /* Text colour */
+    font-size: 20px; /* Font size for initials */
+    font-weight: bold; /* Bold text for initials */
+    border-radius: 50%; /* Makes the element a perfect circle */
+    display: flex;
+    align-items: center; /* Vertically center the text */
+    justify-content: center; /* Horizontally center the text */
+    text-transform: uppercase; /* Ensures initials are uppercase */
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); /* Optional shadow for visual depth */
+    margin-right: 15px; /* Space between the logo and the title */
 }
 
-.top-banner h1 {
+
+.header h1 {
     font-size: 20px;
     margin: 0;
     flex-grow: 1;
@@ -45,41 +57,46 @@ body {
     color: white;
     border: none;
     border-radius: 5px;
-    width: 40px;
-    height: 40px;
-    font-size: 20px;
+    padding: 8px 12px;
     cursor: pointer;
+    font-size: 14px;
 }
 
 .help-button button:hover {
     background-color: #008a8a;
 }
 
+/* Layout Containers */
+.dashboard-layout {
+    display: flex;
+    height: calc(100vh - 60px); /* Subtract banner height */
+}
+
 /* Sidebar */
 .sidebar {
     background-color: #00b3b3;
-    width: 20%;
-    height: calc(100vh - 60px); /* Adjust for banner height */
+    width: 15%;
     display: flex;
     flex-direction: column;
+    align-items: center;
     padding: 20px;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    height: calc(100vh - 60px); /* Accounts for header height */
 }
 
 .sidebar nav ul {
     list-style: none;
     padding: 0;
-    margin: 0;
+    width: 100%;
 }
 
 .sidebar nav ul li {
     background: #e0e0e0;
-    margin: 10px 0;
-    padding: 15px;
+    margin: 10px 0px;
+    padding: 10px 15px;
     text-align: center;
     border-radius: 5px;
     cursor: pointer;
-    font-weight: bold;
 }
 
 .sidebar nav ul li:hover {
@@ -89,47 +106,162 @@ body {
 /* Main Content */
 .main-content {
     flex-grow: 1;
+    background-color: #f9f9f9;
+    padding: 20px;
+}
+
+/* Key Metrics Section */
+.key-metrics {
+    display: flex;
+    justify-content: center; /* Center metrics horizontally */
+    gap: 20px; /* Add space between metrics */
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+/* General Styles */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.dashboard-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+/* Top Banner */
+.header {
+    background-color: #4c3f91; /* Purple banner */
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    height: 60px;
+    position: relative;
+}
+
+.logo {
+    font-size: 18px;
+    font-weight: bold;
+    margin-right: 20px;
+}
+
+.header h1 {
+    font-size: 20px;
+    margin: 0;
+    flex-grow: 1;
+    text-align: left;
+}
+
+.help-button {
+    position: absolute;
+    right: 20px;
+    top: 10px;
+}
+
+.help-button button {
+    background-color: #00b3b3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.help-button button:hover {
+    background-color: #008a8a;
+}
+
+/* Layout Containers */
+.dashboard-layout {
+    display: flex;
+    height: calc(100vh - 60px); /* Subtract banner height */
+}
+
+/* Sidebar */
+.sidebar {
+    background-color: #00b3b3;
+    width: 15%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    height: calc(100vh - 60px); /* Accounts for header height */
+}
+
+.sidebar nav ul {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+}
+
+.sidebar nav ul li {
+    background: #e0e0e0;
+    margin: 10px 0;
+    padding: 10px 15px;
+    text-align: center;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.sidebar nav ul li:hover {
+    background: #cccccc;
+}
+
+/* Main Content */
+.main-content {
+    flex-grow: 1; /* Allow the main content to grow */
+    display: flex;
+    flex-direction: column; /* Stack intro, key metrics, and visualisations vertically */
     padding: 20px;
     background-color: #f9f9f9;
 }
 
-.intro {
-    margin-bottom: 20px;
-    font-size: 16px;
-}
 
+
+/* Key Metrics Section */
 .key-metrics {
     display: flex;
-    justify-content: space-between;
+    justify-content: center; /* Center metrics horizontally */
+    gap: 20px; /* Add space between metrics */
     margin-bottom: 20px;
+    width: 100%;
 }
 
 .metric {
-    flex: 1;
+    flex: 0 0 auto;
+    width: 15vw; /* Adjustable relative size */
+    height: 15vw; /* Matches width for a square */
     background: #d9d9d9;
     text-align: center;
-    padding: 20px;
+    padding: 10px;
     border-radius: 5px;
-    margin: 0 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
 }
 
-.metric:first-child {
-    margin-left: 0;
-}
-
-.metric:last-child {
-    margin-right: 0;
-}
-
+/* Visualisations Section */
 .visualisations {
     display: flex;
+    justify-content: center; /* Center visualisations horizontally */
     gap: 20px;
+    width: 100%;
+    flex-grow: 1; /* Stretch the visualisations section to fill remaining vertical space */
 }
 
 .visualisation {
     flex: 1;
+    max-width: 600px; /* Prevent visualisation boxes from getting too wide */
     background: #d9d9d9;
     text-align: center;
-    padding: 40px;
+    padding: 20px;
     border-radius: 5px;
+    height: 100%; /* Allow the visualisations to stretch vertically */
 }

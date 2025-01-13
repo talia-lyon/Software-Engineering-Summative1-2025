@@ -1,8 +1,9 @@
-from flask import Blueprint, render_template, request, jsonify, flash
+from flask import Blueprint, render_template, request, jsonify, redirect, url_for, flash
 import os
 import pandas as pd
 import plotly.express as px
 import plotly.io as pio
+import io
 
 UPLOAD_FOLDER = 'uploads'
 DEFAULT_DATASET = 'app/default_data/financial_risk_dummy_data.csv'  # Path to default dataset
@@ -19,37 +20,61 @@ if not os.path.exists(UPLOAD_FOLDER):
 if not os.path.exists(VISUALISATIONS_FOLDER):
     os.makedirs(VISUALISATIONS_FOLDER)
 
+
 def allowed_file(filename):
+    """Check if the uploaded file has an allowed extension."""
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-# Root route
+
+def validate_columns(data, required_columns):
+    """Validate if the dataset contains all required columns."""
+    missing_columns = [col for col in required_columns if col not in data.columns]
+    return missing_columns
+
+
 @bp.route('/')
 def index():
     return render_template('index.html')
 
-@bp.route('/upload', methods=['GET', 'POST'])
+
+@bp.route('/upload', methods=['POST'])
 def upload_file():
-    if request.method == 'POST':
-        if 'file' not in request.files:
-            flash('No file part')
-            return redirect(request.url)
-        file = request.files['file']
-        if file.filename == '':
-            flash('No file selected')
-            return redirect(request.url)
-        if file and allowed_file(file.filename):
-            filepath = os.path.join(UPLOAD_FOLDER, file.filename)
-            file.save(filepath)
-            flash('Upload successful!')
-            return render_template('upload.html', preview_file=file.filename)
-        else:
-            flash('Invalid file type. Please upload a CSV or Excel file.')
-            return redirect(request.url)
-    return render_template('upload.html')
+    if 'file' not in request.files or request.files['file'].filename == '':
+        flash('No file selected.', 'error')
+        return render_template('upload.html'), 400
+
+    file = request.files['file']
+    if not allowed_file(file.filename):
+        flash('Invalid file type.', 'error')
+        return render_template('upload.html'), 400
+
+    try:
+        # Save the uploaded file
+        filepath = os.path.join(UPLOAD_FOLDER, file.filename)
+        file.save(filepath)
+
+        # Validate dataset columns
+        if file.filename.endswith('.csv'):
+            data = pd.read_csv(filepath)
+        elif file.filename.endswith('.xlsx'):
+            data = pd.read_excel(filepath)
+
+        required_columns = {'Company', 'Industry', 'Risk_Score', 'Liquidity_Ratio'}
+        if not required_columns.issubset(data.columns):
+            flash('Missing required columns.', 'error')
+            return render_template('upload.html'), 400
+
+        flash('File uploaded successfully!', 'success')
+        return render_template('upload.html'), 200
+
+    except Exception as e:
+        flash(f'An error occurred: {str(e)}', 'error')
+        return render_template('upload.html'), 500
+
+
 
 @bp.route('/preview-file', methods=['POST'])
 def preview_file():
-    """Handles the AJAX request for previewing uploaded data."""
     file = request.files.get('file')
     if not file or file.filename == '':
         return jsonify({'error': 'No file provided.'}), 400
@@ -58,7 +83,6 @@ def preview_file():
         return jsonify({'error': 'Invalid file type. Only CSV or Excel files are supported.'}), 400
 
     try:
-        # Read and process the uploaded file
         if file.filename.endswith('.csv'):
             data = pd.read_csv(file)
         elif file.filename.endswith('.xlsx'):
@@ -66,7 +90,11 @@ def preview_file():
         else:
             return jsonify({'error': 'Unsupported file type.'}), 400
 
-        # Convert the first 10 rows to HTML
+        # Validate required columns
+        required_columns = {'Company', 'Industry', 'Risk_Score', 'Liquidity_Ratio'}
+        if not required_columns.issubset(set(data.columns)):
+            return jsonify({'error': 'Missing required columns'}), 400
+
         preview_html = data.head(10).to_html(classes='dataframe')
         return jsonify({'preview': preview_html}), 200
     except Exception as e:
@@ -76,27 +104,31 @@ def preview_file():
 @bp.route('/upload-final', methods=['POST'])
 def upload_final():
     """Handles the final upload confirmation."""
-    file = request.files.get('file')
-    if not file or file.filename == '':
-        return jsonify({'message': 'No file provided for upload.'}), 400
+    try:
+        file = request.files.get('file')
+        if not file or file.filename == '':
+            return jsonify({'message': 'No file provided for upload.'}), 400
 
-    if allowed_file(file.filename):
-        filepath = os.path.join(UPLOAD_FOLDER, file.filename)
-        file.save(filepath)
-        return jsonify({'message': 'Upload successful!'}), 200
-    else:
-        return jsonify({'message': 'Invalid file type. Please upload a CSV or Excel file.'}), 400
+        if allowed_file(file.filename):
+            filepath = os.path.join(UPLOAD_FOLDER, file.filename)
+            file.save(filepath)
+            return jsonify({'message': 'File uploaded successfully!'}), 200
+        else:
+            return jsonify({'message': 'Invalid file type.'}), 400
+    except Exception as e:
+        return jsonify({'message': f'Error during upload: {e}'}), 500
+
 
 @bp.route('/use-default-data', methods=['GET'])
 def use_default_data():
-    """Handles the AJAX request to preview the default dataset."""
     try:
-        data = pd.read_csv(DEFAULT_DATASET)
-        # Convert the first 10 rows to HTML
+        default_data_path = DEFAULT_DATASET
+        data = pd.read_csv(default_data_path)
         preview_html = data.head(10).to_html(classes='dataframe')
         return jsonify({'preview': preview_html}), 200
     except Exception as e:
-        return jsonify({'error': f"Error loading default dataset: {str(e)}"}), 500
+        return jsonify({'error': f'Error loading default dataset: {str(e)}'}), 500
+
 
 @bp.route('/visualisations')
 def visualisations():

@@ -67,6 +67,28 @@
         h2 {
             margin-left: 20px; /* Align with container */
         }
+
+        /* Flash message styling */
+        .alert {
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            max-width: 70%;
+            margin-left: 20px; /* Align with container */
+        }
+
+        .alert-success {
+            color: #3c763d;
+            background-color: #dff0d8;
+            border-color: #d6e9c6;
+        }
+
+        .alert-error {
+            color: #a94442;
+            background-color: #f2dede;
+            border-color: #ebccd1;
+        }
     </style>
 </head>
 <body>
@@ -80,7 +102,7 @@
             </div>
         </header>
 
-             <!-- Help Modal -->
+        <!-- Help Modal -->
         <div id="helpModal" class="modal">
             <div class="modal-content">
                 <span class="close">&times;</span>
@@ -111,6 +133,17 @@
 
             <!-- Main Content -->
             <main class="main-content">
+                <!-- Flash Message Section -->
+                <div id="flash-messages">
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">{{ message }}</div>
+                        {% endfor %}
+                    {% endif %}
+                    {% endwith %}
+                </div>
+
                 <!-- Default Dataset Section -->
                 <div id="default-dataset-container" class="dataset-container">
                     <h3>Default Dataset</h3>
@@ -137,6 +170,11 @@
     <script>
         $(document).ready(function () {
             let confirmedFile; // Variable to store the confirmed file
+
+            // Hide flash messages after 5 seconds
+            setTimeout(function () {
+                $('.alert').fadeOut('slow');
+            }, 5000);
 
             // Preview button functionality
             $('#preview-button').on('click', function () {

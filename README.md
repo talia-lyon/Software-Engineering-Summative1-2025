@@ -16,71 +16,36 @@ The Risk Assessment Dashboard is a web-based tool designed to streamline the pro
 4. **Help Modal**:
    - A built-in help system provides users with guidance on navigating and using the dashboard.
 
-Project Planning
+## Project Planning
 
-Effective project planning has been a key aspect of this dashboard's development. The following tools and practices were used to ensure progress was structured and well-documented:
+### Project Management Tools
 
-Project Management Tools
+- **GitHub Projects**:
+  - A **Kanban board** was used to track progress across different phases, including backlog, in progress, in review, and completed tasks.
+  - User stories were created to break down features into manageable tasks, such as "File Upload", "Generate Visualisations", and "Key Metrics Display".
+  - Frequent commits ensured version control and traceability of changes. Example commits include:
 
-GitHub Projects:
 
-A Kanban board was used to track progress across different phases, including backlog, in progress, in review, and completed tasks.
+- **Milestones**:
+  - Specific milestones were defined to track progress, including:
+    - Sprint 1: Basic Data Upload and Preview
+    - Sprint 2: Basic Visualisations 
+    - Sprint 3: Advanced Filtering and Metrics
+    - Sprint 4: Polish and Help Section
+  - Each milestone had clear deadlines and measurable goals, ensuring timely delivery of features.
 
-User stories were created to break down features into manageable tasks, such as "File Upload", "Generate Visualisations", and "Key Metrics Display".
+### Iterative Development
 
-Example of the Kanban board:
+- The project followed an **iterative approach**, where features were developed incrementally and refined based on feedback. For example:
+  - Initial designs in Figma were reviewed before being translated into functional tabs.
+  - Visualisations were initially static but iterated upon to include interactive functionality using Plotly.
 
-Backlog: Filter Visualisations, Key Metrics Display
-In Progress: Data Display
-In Review: None
-Done: File Upload, Generate Visualisations, Help Information
+### Lessons Learned
 
-Milestones:
+- **Effective Sprint Planning**: Breaking down the project into smaller tasks and setting milestones helped avoid scope creep.
+- **Collaboration with GitHub**: Using GitHub for version control and project tracking streamlined communication and task management.
+- **Continuous Improvement**: The iterative approach allowed for regular feedback, ensuring the final product met user requirements.
 
-Specific milestones were defined to track progress, including:
-
-Sprint 1: Basic Data Upload and Preview
-
-Sprint 2: Basic Visualisations
-
-Sprint 3: Advanced Filtering and Metrics
-
-Sprint 4: Polish and Help Section
-
-Each milestone had clear deadlines and measurable goals, ensuring timely delivery of features.
-
-Example milestones:
-
-Sprint 1: 50% complete (Basic Data Upload and Preview)
-Sprint 2: 100% complete (Basic Visualisations)
-Sprint 3: 0% complete (Advanced Filtering and Metrics)
-Sprint 4: 100% complete (Polish and Help Section)
-
-Iterative Development
-
-The project followed an iterative approach, where features were developed incrementally and refined based on feedback. For example:
-
-Initial designs in Figma were reviewed before being translated into functional tabs.
-
-Visualisations were initially static but iterated upon to include interactive functionality using Plotly.
-
-Commit History
-
-Frequent commits ensured version control and traceability of changes. Example commits include:
-
-"Adding preview dataset button"
-
-"Finalised styling of previewing data"
-
-"Amend visualisation styling/layout"
-
-Lessons Learned
-
-Effective Sprint Planning: Breaking down the project into smaller tasks and setting milestones helped avoid scope creep.
-
-Collaboration with GitHub: Using GitHub for version control and project tracking streamlined communication and task management.
-
-Continuous Improvement: The iterative approach allowed for regular feedback, ensuring the final product met user requirements.
 
 ## Design Phase
 ### Figma Design
@@ -165,6 +130,41 @@ previous iterations they went through:
    - Access guidance for each feature by clicking the "Show Help" button in the top-right corner.
 
 ![Help Modal](images/help%20modal.png)
+
+### Documentation
+
+The project includes detailed documentation to assist both users and developers in understanding and working with the Risk Assessment Dashboard.
+
+#### Available Documentation
+
+1. **[User Documentation](docs/user_documentation.md)**:
+   - A comprehensive guide for end-users on how to navigate and use the dashboard's features.
+   - Includes detailed instructions for uploading datasets, exploring visualisations, and troubleshooting common issues.
+
+2. **[Technical Documentation](docs/technical_documentation.md)**:
+   - A detailed reference for developers and contributors.
+   - Covers the project structure, workflows, Flask routes, dependencies, and deployment steps.
+
+### Location
+
+All documentation files are stored in the `docs/` directory within the project repository:
+
+risk-assessment-dashboard/
+
+├── docs/                    # Documentation (user and technical guides)
+
+│   ├── user_documentation.md   # User instructions for the dashboard
+
+│   ├── technical_documentation.md # Technical details for developers
+
+
+### How to Access
+
+You can access the documentation directly from this repository:
+- [User Documentation](docs/user_documentation.md)
+- [Technical Documentation](docs/technical_documentation.md)
+
+
 
 ## Evaluation
 ### Strengths

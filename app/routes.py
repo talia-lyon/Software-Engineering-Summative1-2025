@@ -1,7 +1,8 @@
 from flask import Blueprint, render_template, request, jsonify, flash
 import os
 import pandas as pd
-import matplotlib.pyplot as plt
+import plotly.express as px
+import plotly.io as pio
 
 UPLOAD_FOLDER = 'uploads'
 DEFAULT_DATASET = 'app/default_data/financial_risk_dummy_data.csv'  # Path to default dataset
@@ -109,19 +110,33 @@ def visualisations():
             if col not in data.columns:
                 raise ValueError(f"Missing required column: {col}")
 
-        # Generate bar chart for Risk_Score
-        bar_chart = data.plot.bar(x='Company', y='Risk_Score', title='Risk Score by Company', legend=False)
-        bar_chart.figure.savefig('app/static/bar_chart.png')
+        # Generate interactive bar chart using Plotly
+        bar_chart = px.bar(
+            data,
+            x='Company',
+            y='Risk_Score',
+            title='Risk Score by Company',
+            labels={'Risk_Score': 'Risk Score', 'Company': 'Company'},
+        )
+        bar_chart.update_layout(title_x=0.5)  # Center align the title
+        bar_chart_html = pio.to_html(bar_chart, full_html=False)
 
-        # Generate scatter plot for Liquidity_Ratio
-        scatter_plot = data.plot.scatter(x='Risk_Score', y='Liquidity_Ratio', title='Liquidity Ratio vs Risk Score')
-        scatter_plot.figure.savefig('app/static/scatter_plot.png')
+        # Generate interactive scatter plot using Plotly
+        scatter_plot = px.scatter(
+            data,
+            x='Risk_Score',
+            y='Liquidity_Ratio',
+            title='Liquidity Ratio vs Risk Score',
+            labels={'Risk_Score': 'Risk Score', 'Liquidity_Ratio': 'Liquidity Ratio'},
+        )
+        scatter_plot.update_layout(title_x=0.5)  # Center align the title
+        scatter_plot_html = pio.to_html(scatter_plot, full_html=False)
 
         # Render visualisations
         return render_template(
             'visualisations.html',
-            bar_chart='/static/bar_chart.png',
-            scatter_plot='/static/scatter_plot.png',
+            bar_chart=bar_chart_html,
+            scatter_plot=scatter_plot_html,
         )
 
     except Exception as e:

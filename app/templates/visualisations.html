@@ -37,13 +37,13 @@
                     <p>Could not generate visualisations. Please check the default dataset.</p>
                 {% else %}
                     <p>Note: These visualisations are based on the default dataset.</p>
-                    <div class="chart-container">
-                        <h3>Bar Chart: Risk Score by Company</h3>
-                        <img src="{{ bar_chart }}" alt="Bar Chart">
-                    </div>
-                    <div class="chart-container">
-                        <h3>Scatter Plot: Liquidity Ratio vs Risk Score</h3>
-                        <img src="{{ scatter_plot }}" alt="Scatter Plot">
+                    <div class="visualisation-container">
+                        <div class="chart-container">
+                            {{ bar_chart|safe }}
+                        </div>
+                        <div class="chart-container">
+                            {{ scatter_plot|safe }}
+                        </div>
                     </div>
                 {% endif %}
             </main>

@@ -117,6 +117,53 @@ risk-assessment-dashboard/
 
 ---
 
+## Testing and Validation
+The Risk Assessment Dashboard uses a suite of automated tests implemented with `unittest`. Tests covered:
+
+**1. File Uploads:**
+- Validates successful uploads with appropriate feedback for errors like unsupported file types or missing files.
+
+**2. Dataset Validation:**
+- Checks that datasets include all required columns (`Company`, `Industry`, `Risk_Score`, `Liquidity_Ratio`).
+- Returns a `400` error code if validation fails.
+**3. Data Previews:**
+- Confirms that valid datasets generate HTML previews for users.
+
+Tests can be run with:
+
+```
+python -m unittest discover -s tests
+```
+
+## Error Handling
+The application relies on `try-except` blocks to catch runtime exceptions and return meaningful feedback:
+
+**- Missing Required Columns:**
+- Validates that the dataset contains all required columns before processing.
+- If columns are missing, the user sees a flash message and receives a `400` status code.
+
+**- Unexpected Errors:**
+- Generic errors are caught and logged, and the user is informed without exposing sensitive details.
+
+#### Example Error Handling Code:
+
+```
+try:
+    data = pd.read_csv(file)
+    required_columns = {'Company', 'Industry', 'Risk_Score', 'Liquidity_Ratio'}
+    if not required_columns.issubset(data.columns):
+        raise ValueError("Missing required columns")
+except ValueError as e:
+    flash(str(e), 'error')
+    return render_template('upload.html'), 400
+except Exception as e:
+    flash(f"An error occurred: {str(e)}", 'error')
+    return render_template('upload.html'), 500
+```
+This approach ensures the dashboard remains reliable and secure, even in the face of unexpected input or system errors.
+
+---
+
 ## Future Improvements
 1. Add role-based access control for secure multi-user access.
 2. Implement database integration to persist datasets and user configurations.

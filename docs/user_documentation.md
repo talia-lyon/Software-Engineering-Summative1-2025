@@ -88,5 +88,23 @@ The Risk Assessment Dashboard is an interactive web-based tool designed for supe
 
 ---
 
+## Testing and Validation
+The dashboard was rigorously tested to ensure reliable performance. Unit tests covered:
+
+**1. File Uploads:** Validation for missing files, unsupported formats, and successful uploads.
+
+**2. Dataset Structure:** Ensures datasets include required columns to avoid errors during processing.
+
+**3. Data Previews:** Verifies that valid datasets generate accurate previews for users to inspect.
+
+## Error Feedback
+- If no file is selected, users see: *"No file selected."*
+- Invalid file types prompt: *"Invalid file type."*
+- Missing columns trigger: *"Missing required columns."*
+
+These messages help users quickly identify and correct issues during the upload process.
+
+---
+
 ## Contact
 For further assistance, contact [Talia Lyon] at [lyon.t@northeastern.edu].

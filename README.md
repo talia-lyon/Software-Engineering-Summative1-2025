@@ -145,6 +145,27 @@ The project includes detailed documentation to assist both users and developers 
    - A detailed reference for developers and contributors.
    - Covers the project structure, workflows, Flask routes, dependencies, and deployment steps.
 
+---
+
+## Testing and Error Handling
+### Testing Approach
+The Risk Assessment Dashboard was developed using a Test-Driven Development (TDD) methodology. Unit tests were created to validate all core functionalities, ensuring robust performance and user-friendly behaviour.
+
+Key test scenarios:
+- **File Uploads:** Tests validate both successful file uploads and cases of invalid file types or missing files.
+- **Dataset Validation:** Ensures that uploaded datasets include all required columns (`Company`, `Industry`, `Risk_Score`, `Liquidity_Ratio`).
+- **Data Previews:** Confirms that valid datasets generate accurate HTML previews.
+
+**Error Handling**
+The dashboard incorporates Python’s `try-except` blocks to handle errors gracefully and provide users with clear feedback.
+
+- For example, if required columns are missing, the application flashes the message: *"Missing required columns."*
+- Unexpected errors prompt a generic message: *"An error occurred while processing the file."*
+
+This approach ensures the application is reliable and user-friendly.
+
+---
+
 ### Location
 
 All documentation files are stored in the `docs/` directory within the project repository:

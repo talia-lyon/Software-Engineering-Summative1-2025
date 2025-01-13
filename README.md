@@ -16,6 +16,72 @@ The Risk Assessment Dashboard is a web-based tool designed to streamline the pro
 4. **Help Modal**:
    - A built-in help system provides users with guidance on navigating and using the dashboard.
 
+Project Planning
+
+Effective project planning has been a key aspect of this dashboard's development. The following tools and practices were used to ensure progress was structured and well-documented:
+
+Project Management Tools
+
+GitHub Projects:
+
+A Kanban board was used to track progress across different phases, including backlog, in progress, in review, and completed tasks.
+
+User stories were created to break down features into manageable tasks, such as "File Upload", "Generate Visualisations", and "Key Metrics Display".
+
+Example of the Kanban board:
+
+Backlog: Filter Visualisations, Key Metrics Display
+In Progress: Data Display
+In Review: None
+Done: File Upload, Generate Visualisations, Help Information
+
+Milestones:
+
+Specific milestones were defined to track progress, including:
+
+Sprint 1: Basic Data Upload and Preview
+
+Sprint 2: Basic Visualisations
+
+Sprint 3: Advanced Filtering and Metrics
+
+Sprint 4: Polish and Help Section
+
+Each milestone had clear deadlines and measurable goals, ensuring timely delivery of features.
+
+Example milestones:
+
+Sprint 1: 50% complete (Basic Data Upload and Preview)
+Sprint 2: 100% complete (Basic Visualisations)
+Sprint 3: 0% complete (Advanced Filtering and Metrics)
+Sprint 4: 100% complete (Polish and Help Section)
+
+Iterative Development
+
+The project followed an iterative approach, where features were developed incrementally and refined based on feedback. For example:
+
+Initial designs in Figma were reviewed before being translated into functional tabs.
+
+Visualisations were initially static but iterated upon to include interactive functionality using Plotly.
+
+Commit History
+
+Frequent commits ensured version control and traceability of changes. Example commits include:
+
+"Adding preview dataset button"
+
+"Finalised styling of previewing data"
+
+"Amend visualisation styling/layout"
+
+Lessons Learned
+
+Effective Sprint Planning: Breaking down the project into smaller tasks and setting milestones helped avoid scope creep.
+
+Collaboration with GitHub: Using GitHub for version control and project tracking streamlined communication and task management.
+
+Continuous Improvement: The iterative approach allowed for regular feedback, ensuring the final product met user requirements.
+
 ## Design Phase
 ### Figma Design
 Below is the initial design created in Figma, illustrating the layout and functionality of the dashboard:
@@ -28,12 +94,16 @@ The design includes:
 - **Overview Visualisations**: Space allocated for two high-level visualisations.
 
 ### Tabs and Screenshots
-Each tab is designed to fulfil specific functionality. Below are the screenshots of their final implementation:
+Each tab is designed to fulfil specific functionality. Below are the screenshots of their final implementations and the
+previous iterations they went through:
 
 #### Overview Tab
 - **Purpose**: Provides a summary of high-level metrics and visualisations.
 
-![Overview Tab](path_to_overview_tab_image)
+| ![First Iteration of Overview](images/3.png) | ![Overview Tab](images/final%20static.png) |
+|----------------------------------------------|--------------------------------------------|
+| First Iteration of Overview Tab              | Overview Tab                               |
+
 
 - **Features**:
   - Key metrics displayed in cards.
@@ -42,7 +112,10 @@ Each tab is designed to fulfil specific functionality. Below are the screenshots
 #### Upload Data Tab
 - **Purpose**: Allows users to upload datasets and preview them.
 
-![Upload Data Tab](path_to_upload_data_tab_image)
+
+| ![First Iteration of Upload Tab](images/uploaddata.png) | ![Upload Data Tab](images/upload%20data%202.png) | ![Preview](images/upload%20data%203.png)  |
+|---------------------------------------------------------|--------------------------------------------------|-------------------------------------------|
+| First Iteration of Upload Tab                           | Final Upload Data Tab                            | Preview of Default Data and Uploaded Data |
 
 - **Features**:
   - Buttons to upload a file or use a default dataset.
@@ -51,7 +124,9 @@ Each tab is designed to fulfil specific functionality. Below are the screenshots
 #### Risk Visualisations Tab
 - **Purpose**: Provides interactive visualisations for analysing risk scores and liquidity ratios.
 
-![Risk Visualisations Tab](path_to_risk_visualisations_tab_image)
+| ![First Iteration of Visualisations](images/viz%202.png) | ![First Interactive Visualisations](images/viz%203.png) | ![Risk Visualisations Tab](images/viz%204.png) |
+|----------------------------------------------------------|---------------------------------------------------------|------------------------------------------------|
+| First Iteration of Visualisations                        | First Interactive Visualisations                        | Final Iteration of Risk Visualisations Tab     |
 
 - **Features**:
   - Bar chart showing risk scores by company.
@@ -65,8 +140,7 @@ Each tab is designed to fulfil specific functionality. Below are the screenshots
 ### Steps to Install and Run Locally
 1. Clone the repository:
    ```bash
-   git clone <repository-link>
-   cd risk-assessment-dashboard
+   git clone <https://github.com/talia-lyon/Software-Engineering-Summative1-2025.git>
    ```
 2. Install the required dependencies:
    ```bash
@@ -89,6 +163,8 @@ Each tab is designed to fulfil specific functionality. Below are the screenshots
    - Explore bar charts showing risk scores by company and scatter plots comparing liquidity ratios to risk scores.
 4. **Help Modal**:
    - Access guidance for each feature by clicking the "Show Help" button in the top-right corner.
+
+![Help Modal](images/help%20modal.png)
 
 ## Evaluation
 ### Strengths

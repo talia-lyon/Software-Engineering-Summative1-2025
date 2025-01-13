@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Risk Visualisations</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Top Banner -->
+        <header class="header">
+            <div class="logo">TL</div>
+            <h1>Risk Assessment Dashboard</h1>
+            <div class="help-button">
+                <button>Show Help</button>
+            </div>
+        </header>
+
+        <!-- Dashboard Layout -->
+        <div class="dashboard-layout">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <nav>
+                    <ul>
+                        <li><a href="/">Overview</a></li>
+                        <li><a href="/upload">Upload Data</a></li>
+                        <li><a href="/visualisations">Risk Visualisations</a></li>
+                    </ul>
+                </nav>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="main-content">
+                <h2>Risk Visualisations</h2>
+                {% if error %}
+                    <p>Could not generate visualisations. Please check the default dataset.</p>
+                {% else %}
+                    <p>Note: These visualisations are based on the default dataset.</p>
+                    <div class="chart-container">
+                        <h3>Bar Chart: Risk Score by Company</h3>
+                        <img src="{{ bar_chart }}" alt="Bar Chart">
+                    </div>
+                    <div class="chart-container">
+                        <h3>Scatter Plot: Liquidity Ratio vs Risk Score</h3>
+                        <img src="{{ scatter_plot }}" alt="Scatter Plot">
+                    </div>
+                {% endif %}
+            </main>
+        </div>
+    </div>
+</body>
+</html>

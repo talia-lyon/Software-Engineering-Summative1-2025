@@ -1,16 +1,22 @@
 from flask import Blueprint, render_template, request, jsonify, flash
 import os
 import pandas as pd
+import matplotlib.pyplot as plt
 
 UPLOAD_FOLDER = 'uploads'
 DEFAULT_DATASET = 'app/default_data/financial_risk_dummy_data.csv'  # Path to default dataset
 ALLOWED_EXTENSIONS = {'csv', 'xlsx'}
+VISUALISATIONS_FOLDER = 'app/static/visualisations'
 
 bp = Blueprint('routes', __name__)  # Define a Blueprint
 
 # Ensure upload folder exists
 if not os.path.exists(UPLOAD_FOLDER):
     os.makedirs(UPLOAD_FOLDER)
+
+# Ensure visualisations folder exists
+if not os.path.exists(VISUALISATIONS_FOLDER):
+    os.makedirs(VISUALISATIONS_FOLDER)
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
@@ -90,3 +96,34 @@ def use_default_data():
         return jsonify({'preview': preview_html}), 200
     except Exception as e:
         return jsonify({'error': f"Error loading default dataset: {str(e)}"}), 500
+
+@bp.route('/visualisations')
+def visualisations():
+    try:
+        # Load the default dataset
+        data = pd.read_csv(DEFAULT_DATASET)
+
+        # Check required columns
+        required_columns = ['Company', 'Risk_Score', 'Liquidity_Ratio']
+        for col in required_columns:
+            if col not in data.columns:
+                raise ValueError(f"Missing required column: {col}")
+
+        # Generate bar chart for Risk_Score
+        bar_chart = data.plot.bar(x='Company', y='Risk_Score', title='Risk Score by Company', legend=False)
+        bar_chart.figure.savefig('app/static/bar_chart.png')
+
+        # Generate scatter plot for Liquidity_Ratio
+        scatter_plot = data.plot.scatter(x='Risk_Score', y='Liquidity_Ratio', title='Liquidity Ratio vs Risk Score')
+        scatter_plot.figure.savefig('app/static/scatter_plot.png')
+
+        # Render visualisations
+        return render_template(
+            'visualisations.html',
+            bar_chart='/static/bar_chart.png',
+            scatter_plot='/static/scatter_plot.png',
+        )
+
+    except Exception as e:
+        flash(f"Error generating visualisations: {e}")
+        return render_template('visualisations.html', error=True)

@@ -7,16 +7,19 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
-        /* Styling for the default dataset section */
-        #default-dataset-container {
+        /* Styling for the dataset containers */
+        .dataset-container {
             margin-bottom: 20px;
             padding: 15px;
             border: 1px solid #cccccc;
             border-radius: 5px;
             background-color: #f9f9f9;
+            max-width: 70%; /* Adjust the width */
+            margin-left: 20px; /* Align to the left */
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
         }
 
-        #default-dataset-container button {
+        .dataset-container button {
             background-color: #4c3f91;
             color: white;
             border: none;
@@ -26,8 +29,42 @@
             font-size: 14px;
         }
 
-        #default-dataset-container button:hover {
+        .dataset-container button:hover {
             background-color: #3a2c70;
+        }
+
+        /* Table Styling */
+        table.dataframe {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        table.dataframe th,
+        table.dataframe td {
+            border: 1px solid #ddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        table.dataframe th {
+            background-color: #4c3f91;
+            color: white;
+        }
+
+        table.dataframe tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        /* Centering the Preview Container */
+        #preview-container,
+        #default-preview-container {
+            margin-top: 15px;
+        }
+
+        /* Adjust alignment */
+        h2 {
+            margin-left: 20px; /* Align with container */
         }
     </style>
 </head>
@@ -57,24 +94,25 @@
 
             <!-- Main Content -->
             <main class="main-content">
-                <h2>Upload Your Data</h2>
-
                 <!-- Default Dataset Section -->
-                <div id="default-dataset-container">
+                <div id="default-dataset-container" class="dataset-container">
                     <h3>Default Dataset</h3>
                     <p>Click the button below to preview and use the default dataset.</p>
                     <button id="use-default-button">Use Default Dataset</button>
-                    <div id="default-preview-container" style="margin-top: 15px; display: none;"></div>
+                    <div id="default-preview-container"></div>
                 </div>
 
-                <!-- Upload Data Section -->
-                <form id="upload-form" enctype="multipart/form-data">
-                    <input type="file" name="file" id="file-input">
-                    <button type="button" id="preview-button">Preview Data</button>
-                </form>
+                <!-- Upload Dataset Section -->
+                <div id="upload-dataset-container" class="dataset-container">
+                    <h2>Upload Your Data</h2>
+                    <form id="upload-form" enctype="multipart/form-data">
+                        <input type="file" name="file" id="file-input">
+                        <button type="button" id="preview-button">Preview Data</button>
+                    </form>
 
-                <!-- Container for Preview Table -->
-                <div id="preview-container" style="display: none;"></div>
+                    <!-- Container for Preview Table -->
+                    <div id="preview-container" style="display: none;"></div>
+                </div>
             </main>
         </div>
     </div>

@@ -367,24 +367,40 @@ table.dataframe tr:hover {
 /* Visualisation Container */
 .visualisation-container {
     display: flex;
+    flex-wrap: wrap; /* Allow charts to wrap if there isn't enough space */
     justify-content: space-between;
-    gap: 20px;
+    gap: 20px; /* Add spacing between the charts */
     margin-top: 20px;
+    width: 100%; /* Ensure container takes up full width */
+    box-sizing: border-box;
 }
 
+/* Chart Container */
 .chart-container {
-    flex: 1;
+    flex: 1 1 48%; /* Allow charts to take up roughly half the width */
+    min-width: 400px; /* Prevent charts from shrinking too much */
+    max-width: 48%; /* Ensure they don't take more than 48% of the row */
     border: 1px solid #cccccc;
     border-radius: 5px;
     padding: 10px;
     background-color: #f9f9f9;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
 }
 
-/* Responsive adjustments */
+/* Ensure proper spacing for small screens */
 @media (max-width: 768px) {
     .visualisation-container {
-        flex-direction: column;
+        flex-direction: column; /* Stack charts vertically */
+    }
+    .chart-container {
+        width: 100%; /* Full width for small screens */
+        margin-bottom: 20px;
     }
 }
+
+
 

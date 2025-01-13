@@ -79,3 +79,14 @@ def upload_final():
         return jsonify({'message': 'Upload successful!'}), 200
     else:
         return jsonify({'message': 'Invalid file type. Please upload a CSV or Excel file.'}), 400
+
+@bp.route('/use-default-data', methods=['GET'])
+def use_default_data():
+    """Handles the AJAX request to preview the default dataset."""
+    try:
+        data = pd.read_csv(DEFAULT_DATASET)
+        # Convert the first 10 rows to HTML
+        preview_html = data.head(10).to_html(classes='dataframe')
+        return jsonify({'preview': preview_html}), 200
+    except Exception as e:
+        return jsonify({'error': f"Error loading default dataset: {str(e)}"}), 500

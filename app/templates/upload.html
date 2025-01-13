@@ -7,52 +7,27 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
-        /* Styling for the preview container */
-        #preview-container {
-            margin-top: 20px;
+        /* Styling for the default dataset section */
+        #default-dataset-container {
+            margin-bottom: 20px;
             padding: 15px;
             border: 1px solid #cccccc;
             border-radius: 5px;
             background-color: #f9f9f9;
         }
 
-        /* Center the upload button */
-        #confirm-upload {
-            display: block;
-            margin: 15px auto;
-            padding: 10px 20px;
+        #default-dataset-container button {
             background-color: #4c3f91;
             color: white;
             border: none;
             border-radius: 5px;
+            padding: 10px 15px;
             cursor: pointer;
+            font-size: 14px;
         }
 
-        #confirm-upload:hover {
+        #default-dataset-container button:hover {
             background-color: #3a2c70;
-        }
-
-        /* Table Styling */
-        table.dataframe {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-        }
-
-        table.dataframe th,
-        table.dataframe td {
-            border: 1px solid #ddd;
-            text-align: left;
-            padding: 8px;
-        }
-
-        table.dataframe th {
-            background-color: #4c3f91;
-            color: white;
-        }
-
-        table.dataframe tr:nth-child(even) {
-            background-color: #f2f2f2;
         }
     </style>
 </head>
@@ -83,9 +58,19 @@
             <!-- Main Content -->
             <main class="main-content">
                 <h2>Upload Your Data</h2>
+
+                <!-- Default Dataset Section -->
+                <div id="default-dataset-container">
+                    <h3>Default Dataset</h3>
+                    <p>Click the button below to preview and use the default dataset.</p>
+                    <button id="use-default-button">Use Default Dataset</button>
+                    <div id="default-preview-container" style="margin-top: 15px; display: none;"></div>
+                </div>
+
+                <!-- Upload Data Section -->
                 <form id="upload-form" enctype="multipart/form-data">
                     <input type="file" name="file" id="file-input">
-                    <button type="button" id="preview-button">Preview</button>
+                    <button type="button" id="preview-button">Preview Data</button>
                 </form>
 
                 <!-- Container for Preview Table -->
@@ -137,7 +122,6 @@
                                     processData: false,
                                     success: function (uploadResponse) {
                                         alert(uploadResponse.message || 'Upload successful!');
-                                        $('#preview-container').hide(); // Clear preview after upload
                                     },
                                     error: function (xhr) {
                                         alert('Error uploading the file. Please try again.');
@@ -151,6 +135,27 @@
                     error: function (xhr) {
                         const error = xhr.responseJSON?.error || 'An error occurred while previewing the file.';
                         alert(error);
+                    }
+                });
+            });
+
+            // Use Default Dataset functionality
+            $('#use-default-button').on('click', function () {
+                $.ajax({
+                    url: '/use-default-data',
+                    type: 'GET',
+                    success: function (response) {
+                        if (response.preview) {
+                            $('#default-preview-container').html(`
+                                <h3>Default Dataset Preview:</h3>
+                                ${response.preview}
+                            `).show();
+                        } else {
+                            alert('No preview available for the default dataset.');
+                        }
+                    },
+                    error: function (xhr) {
+                        alert('Error loading the default dataset.');
                     }
                 });
             });

@@ -37,39 +37,52 @@ def index():
     return render_template('index.html')
 
 
-@bp.route('/upload', methods=['POST'])
+@bp.route('/upload', methods=['GET', 'POST'])
 def upload_file():
-    if 'file' not in request.files or request.files['file'].filename == '':
-        flash('No file selected.', 'error')
-        return render_template('upload.html'), 400
+    if request.method == 'GET':
+        # Render the upload page on GET requests
+        return render_template('upload.html')
 
-    file = request.files['file']
-    if not allowed_file(file.filename):
-        flash('Invalid file type.', 'error')
-        return render_template('upload.html'), 400
-
-    try:
-        # Save the uploaded file
-        filepath = os.path.join(UPLOAD_FOLDER, file.filename)
-        file.save(filepath)
-
-        # Validate dataset columns
-        if file.filename.endswith('.csv'):
-            data = pd.read_csv(filepath)
-        elif file.filename.endswith('.xlsx'):
-            data = pd.read_excel(filepath)
-
-        required_columns = {'Company', 'Industry', 'Risk_Score', 'Liquidity_Ratio'}
-        if not required_columns.issubset(data.columns):
-            flash('Missing required columns.', 'error')
+    if request.method == 'POST':
+        if 'file' not in request.files or request.files['file'].filename == '':
+            flash('No file selected.', 'error')
             return render_template('upload.html'), 400
 
-        flash('File uploaded successfully!', 'success')
-        return render_template('upload.html'), 200
+        file = request.files['file']
+        if not allowed_file(file.filename):
+            flash('Invalid file type.', 'error')
+            return render_template('upload.html'), 400
 
-    except Exception as e:
-        flash(f'An error occurred: {str(e)}', 'error')
-        return render_template('upload.html'), 500
+        try:
+            # Save the uploaded file
+            filepath = os.path.join(UPLOAD_FOLDER, file.filename)
+            file.save(filepath)
+
+            # Validate dataset columns
+            if file.filename.endswith('.csv'):
+                data = pd.read_csv(filepath)
+            elif file.filename.endswith('.xlsx'):
+                data = pd.read_excel(filepath)
+            else:
+                flash('Unsupported file format.', 'error')
+                return render_template('upload.html'), 400
+
+            required_columns = {'Company', 'Industry', 'Risk_Score', 'Liquidity_Ratio'}
+            if not required_columns.issubset(data.columns):
+                flash('Missing required columns.', 'error')
+                return render_template('upload.html'), 400
+
+            flash('File uploaded successfully!', 'success')
+            return render_template('upload.html'), 200
+
+        except pd.errors.EmptyDataError:
+            flash('The uploaded file is empty.', 'error')
+            return render_template('upload.html'), 400
+
+        except Exception as e:
+            flash(f'An error occurred: {str(e)}', 'error')
+            return render_template('upload.html'), 500
+
 
 
 

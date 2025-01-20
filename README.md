@@ -3,7 +3,12 @@
 # Risk Assessment Dashboard
 
 ## Introduction
-The Risk Assessment Dashboard is a web-based tool designed to streamline the process of assessing financial risks for supervisory teams. Built using Flask, HTML, and Plotly for interactive visualisations, the dashboard allows users to upload datasets, view key metrics, and analyse risks through graphical representations. This application is designed to support decision-making in regulatory environments by providing actionable insights.
+The Risk Assessment Dashboard is a web-based tool designed to streamline the process of assessing financial risks for 
+supervisory teams. Built using Flask, HTML, and Plotly for interactive visualisations, the dashboard provides a platform 
+for uploading datasets, viewing key metrics, and analysing risks through graphical representations. This aligns with best 
+practices in software engineering, such as modular design and usability, as emphasised by Sommerville (2016). Furthermore, 
+by incorporating interactive visualisations, the application adheres to principles of effective data communication 
+outlined by Knaflic (2015), supporting decision-making in regulatory environments with actionable insights.
 
 ---
 
@@ -25,9 +30,12 @@ The Risk Assessment Dashboard is a web-based tool designed to streamline the pro
 ### Project Management Tools
 
 - **GitHub Projects**:
-  - A **Kanban board** was used to track progress across different phases, including backlog, in progress, in review, and completed tasks.
-  - User stories were created to break down features into manageable tasks, such as "File Upload", "Generate Visualisations", and "Key Metrics Display".
-  - Frequent commits ensured version control and traceability of changes. Example commits include:
+  - The project utilised GitHub Projects to manage tasks efficiently through a Kanban board, breaking down features into 
+  manageable user stories like "File Upload" and "Generate Visualisations." This approach follows agile methodologies, 
+  which are considered a gold standard in iterative development (Schwaber and Sutherland, 2020). 
+  - Milestones were set fortasks such as basic data upload and advanced filtering, ensuring timely delivery. 
+  - Regular commits provided version control and traceability of changes, a practice that aligns with Royce’s (1987) recommendations for managing software
+  systems.
 
 | ![Example User Story](images/example%20user%20story.png) | ![Kanban Board](images/kanban.png) |
 |----------------------------------------------------------|--------------------------------------------|
@@ -107,10 +115,12 @@ check for correct file format uploaded e.e. csv, xlsx, and also correct column n
 
 #### Risk Visualisations Tab
 - **Purpose**: Provides interactive visualisations for analysing risk scores and liquidity ratios.
-- **Development:** In this tab, two basic visualisations to summarise the data are shown. They automatically
-use the default dataset and not the uploaded dataset in case of missing correct column names. To begin with, the 
-visualisations were static and laid out on top of eachother. They were then changed to be interactive using plotly,
-for enhanced user experience, and also side-by-side, for easier analysis. 
+- **Development:** The Risk Visualisations Tab provides interactive insights into risk scores and liquidity ratios 
+through bar charts and scatter plots. Initially designed as static visualisations, they were iteratively developed 
+into interactive tools using Plotly, enabling dynamic data exploration. The inclusion of these visualisations reflects
+principles outlined by Munzner (2014), which highlight the importance of interactivity in enhancing data comprehension.
+This design choice ensures that users can explore patterns and relationships effectively, supporting better 
+decision-making.
 
 | ![First Iteration of Visualisations](images/viz%202.png) | ![First Interactive Visualisations](images/viz%203.png) | ![Risk Visualisations Tab](images/viz%204.png) |
 |----------------------------------------------------------|---------------------------------------------------------|------------------------------------------------|
@@ -195,7 +205,11 @@ You can access the documentation directly from this repository:
 
 ## Testing and Error Handling
 ### Testing Approach
-The Risk Assessment Dashboard was developed using a Test-Driven Development (TDD) methodology. Unit tests were created to validate all core functionalities, ensuring robust performance and user-friendly behaviour.
+The Risk Assessment Dashboard was developed using a Test-Driven Development (TDD) methodology, as outlined by Beck (2022). 
+Unit tests validated core functionalities, including file uploads and dataset validation, ensuring robustness. 
+Key scenarios, such as handling invalid file types and missing data columns, were addressed. Python’s try-except blocks 
+ensured errors were handled gracefully, with clear feedback provided to users. By incorporating TDD, the project not only i
+mproved reliability but also adhered to best practices in software quality assurance (Astels, 2003).
 
 Key test scenarios:
 - **File Uploads:** Tests validate both successful file uploads and cases of invalid file types or missing files.
@@ -298,4 +312,14 @@ To contribute to the project:
 ## Contact
 For support or suggestions, please contact [Talia Lyon] at [lyon.t@northeastern.edu].
 
+---
+
+### References
+1. Beck, K. (2022) *Test-driven development: by example*. Boston: Addison-Wesley.
+2. Knaflic, C. N. (2015) *Storytelling with data: a data visualization guide for business professionals*. Hoboken, NJ: Wiley.
+3. Munzner, T. (2014) *Visualization analysis and design*. Boca Raton, FL: CRC Press.
+4. Royce, W. W. (1987) *Managing the development of large software systems: concepts and techniques*. Proceedings of the 9th International Conference on Software Engineering. Available at: https://doi.org/10.1109/ICSE.1987.10001.
+5. Schwaber, K. and Sutherland, J. (2020) *The Scrum guide: the definitive guide to Scrum: the rules of the game*. Available at: https://scrumguides.org/scrum-guide.html (Accessed: 20 January 2025).
+6. Sommerville, I. (2016) *Software engineering*. 10th edn. Boston: Pearson.
+7. Astels, D. (2003) *Test-driven development: a practical guide*. Boston: Pearson Education.
 

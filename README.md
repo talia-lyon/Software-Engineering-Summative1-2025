@@ -5,6 +5,8 @@
 ## Introduction
 The Risk Assessment Dashboard is a web-based tool designed to streamline the process of assessing financial risks for supervisory teams. Built using Flask, HTML, and Plotly for interactive visualisations, the dashboard allows users to upload datasets, view key metrics, and analyse risks through graphical representations. This application is designed to support decision-making in regulatory environments by providing actionable insights.
 
+---
+
 ## Features
 1. **Overview Tab**:
    - Displays a summary of high-level metrics and visualisations to provide a quick snapshot of financial risks.
@@ -16,6 +18,8 @@ The Risk Assessment Dashboard is a web-based tool designed to streamline the pro
 4. **Help Modal**:
    - A built-in help system provides users with guidance on navigating and using the dashboard.
 
+---
+
 ## Project Planning
 
 ### Project Management Tools
@@ -25,6 +29,9 @@ The Risk Assessment Dashboard is a web-based tool designed to streamline the pro
   - User stories were created to break down features into manageable tasks, such as "File Upload", "Generate Visualisations", and "Key Metrics Display".
   - Frequent commits ensured version control and traceability of changes. Example commits include:
 
+| ![Example User Story](images/example%20user%20story.png) | ![Kanban Board](images/kanban.png) |
+|----------------------------------------------------------|--------------------------------------------|
+| Example of User Story 1                                  | Kanban Board                               |
 
 - **Milestones**:
   - Specific milestones were defined to track progress, including:
@@ -33,6 +40,8 @@ The Risk Assessment Dashboard is a web-based tool designed to streamline the pro
     - Sprint 3: Advanced Filtering and Metrics
     - Sprint 4: Polish and Help Section
   - Each milestone had clear deadlines and measurable goals, ensuring timely delivery of features.
+
+![Milestones](images/milestones.png)
 
 ### Iterative Development
 
@@ -46,6 +55,7 @@ The Risk Assessment Dashboard is a web-based tool designed to streamline the pro
 - **Collaboration with GitHub**: Using GitHub for version control and project tracking streamlined communication and task management.
 - **Continuous Improvement**: The iterative approach allowed for regular feedback, ensuring the final product met user requirements.
 
+---
 
 ## Design Phase
 ### Figma Design
@@ -65,9 +75,14 @@ previous iterations they went through:
 #### Overview Tab
 - **Purpose**: Provides a summary of high-level metrics and visualisations.
 
-| ![First Iteration of Overview](images/3.png) | ![Overview Tab](images/final%20static.png) |
-|----------------------------------------------|--------------------------------------------|
-| First Iteration of Overview Tab              | Overview Tab                               |
+- **Development:** This page went through a few iterations to achieve a design similar in look to that of my Figma design 
+above. To begin with, I created a design with the colours and basic homepage design. Then, I added the 
+tabs, 'company logo', and grid of where the metrics and visualisations would be. The final iteration closely resembles my
+Figma design.
+
+| ![First Iteration of Overview](images/3.png)  | ![Overview Tab](images/final%20static.png) |
+|-----------------------------------------------|--------------------------------------------|
+| First Iteration of Overview Tab (with colour) | Overview Tab                               |
 
 
 - **Features**:
@@ -76,6 +91,10 @@ previous iterations they went through:
 
 #### Upload Data Tab
 - **Purpose**: Allows users to upload datasets and preview them.
+- **Development:** This tab began with just having a user upload file function, I then added a preview data function, 
+so the user is able to check which data file they uploaded. Then, I developed a 'use default dataset' function, in case users 
+didn't have the correctly formatted dataset - also available to preview. This tab includes try-except errors which
+check for correct file format uploaded e.e. csv, xlsx, and also correct column names required.
 
 
 | ![First Iteration of Upload Tab](images/uploaddata.png) | ![Upload Data Tab](images/upload%20data%202.png) | ![Preview](images/upload%20data%203.png)  |
@@ -88,6 +107,10 @@ previous iterations they went through:
 
 #### Risk Visualisations Tab
 - **Purpose**: Provides interactive visualisations for analysing risk scores and liquidity ratios.
+- **Development:** In this tab, two basic visualisations to summarise the data are shown. They automatically
+use the default dataset and not the uploaded dataset in case of missing correct column names. To begin with, the 
+visualisations were static and laid out on top of eachother. They were then changed to be interactive using plotly,
+for enhanced user experience, and also side-by-side, for easier analysis. 
 
 | ![First Iteration of Visualisations](images/viz%202.png) | ![First Interactive Visualisations](images/viz%203.png) | ![Risk Visualisations Tab](images/viz%204.png) |
 |----------------------------------------------------------|---------------------------------------------------------|------------------------------------------------|
@@ -96,6 +119,8 @@ previous iterations they went through:
 - **Features**:
   - Bar chart showing risk scores by company.
   - Scatter plot comparing liquidity ratios to risk scores.
+
+---
 
 ## Installation Instructions
 ### Prerequisites
@@ -131,6 +156,8 @@ previous iterations they went through:
 
 ![Help Modal](images/help%20modal.png)
 
+---
+
 ### Documentation
 
 The project includes detailed documentation to assist both users and developers in understanding and working with the Risk Assessment Dashboard.
@@ -144,6 +171,25 @@ The project includes detailed documentation to assist both users and developers 
 2. **[Technical Documentation](docs/technical_documentation.md)**:
    - A detailed reference for developers and contributors.
    - Covers the project structure, workflows, Flask routes, dependencies, and deployment steps.
+
+#### Location
+
+All documentation files are stored in the `docs/` directory within the project repository:
+
+risk-assessment-dashboard/
+
+├── docs/                    # Documentation (user and technical guides)
+
+│   ├── user_documentation.md   # User instructions for the dashboard
+
+│   ├── technical_documentation.md # Technical details for developers
+
+
+### How to Access
+
+You can access the documentation directly from this repository:
+- [User Documentation](docs/user_documentation.md)
+- [Technical Documentation](docs/technical_documentation.md)
 
 ---
 
@@ -166,26 +212,50 @@ This approach ensures the application is reliable and user-friendly.
 
 ---
 
-### Location
+## Ethics
 
-All documentation files are stored in the `docs/` directory within the project repository:
+As a developer of this Risk Assessment Dashboard, I acknowledge the importance of adhering to ethical principles 
+throughout the design, development, and deployment of this application. The following outlines the key ethical 
+considerations integrated into this project:
 
-risk-assessment-dashboard/
+1. **Data Privacy and Security**
 
-├── docs/                    # Documentation (user and technical guides)
+- The system ensures that all uploaded data is handled securely, adhering to best practices in data encryption, 
+storage, and access controls.
+- Users are notified of the purpose and scope of data usage to ensure transparency and compliance with privacy 
+laws such as GDPR.
+- Uploaded files are validated and sanitised to prevent malicious data injections, ensuring the integrity of the
+application.
 
-│   ├── user_documentation.md   # User instructions for the dashboard
+2. **Bias and Fairness**
 
-│   ├── technical_documentation.md # Technical details for developers
+- The dashboard aims to provide insights based on objective data. However, it is the responsibility of users to
+critically evaluate the source data to avoid perpetuating biases.
+- Efforts have been made to design algorithms and processes that treat all data inputs impartially without 
+favouritism toward any specific organisation or industry.
 
+3. **Transparency**
 
-### How to Access
+- The dashboard provides users with clear error messages and notifications about the success or failure of their 
+actions, ensuring they are well-informed throughout the process.
+- All calculations, visualisations, and risk metrics are generated in a way that is auditable and reproducible 
+to maintain trust in the results.
 
-You can access the documentation directly from this repository:
-- [User Documentation](docs/user_documentation.md)
-- [Technical Documentation](docs/technical_documentation.md)
+4. **Accessibility and Usability**
 
+- The application has been designed with user experience in mind, ensuring that it is intuitive and accessible 
+for individuals with diverse levels of technical expertise.
+- Additional efforts have been made to follow accessibility guidelines (e.g., WCAG) to make the application 
+usable by individuals with disabilities.
 
+5. **Accountability**
+
+- While the tool aids in risk assessment, users are reminded that it is not a substitute for professional 
+judgement. The tool should be seen as a supplement rather than the sole decision-making mechanism.
+- Developers remain committed to maintaining and improving the dashboard to address any emerging ethical 
+concerns or user feedback.
+
+---
 
 ## Evaluation
 ### Strengths
@@ -206,6 +276,8 @@ You can access the documentation directly from this repository:
 4. Include predictive analytics features to forecast potential risks based on historical data.
 5. Implement role-based access control to improve security and customisation for different user groups.
 
+---
+
 ## Project Contributions
 To contribute to the project:
 1. Fork the repository.
@@ -221,11 +293,7 @@ To contribute to the project:
    ```bash
    git push origin feature/your-feature-name
    ```
-
-## Future Enhancements
-1. Add advanced filtering options for visualisations.
-2. Integrate predictive models for forward-looking risk analysis.
-3. Implement role-based access control for enhanced security.
+---
 
 ## Contact
 For support or suggestions, please contact [Talia Lyon] at [lyon.t@northeastern.edu].
